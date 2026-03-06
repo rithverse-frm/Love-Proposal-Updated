@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Love Proposal Generator ❤️</title>
+
+<style>
+body{
+font-family:Arial;
+background:linear-gradient(135deg,#ff758c,#ff7eb3);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+margin:0;
+}
+
+.box{
+text-align:center;
+background:rgba(0,0,0,0.2);
+padding:30px;
+border-radius:20px;
+}
+
+input,textarea{
+padding:10px;
+margin:10px;
+width:250px;
+border:none;
+border-radius:10px;
+}
+
+button{
+padding:10px 20px;
+border:none;
+border-radius:20px;
+background:#00ff9d;
+cursor:pointer;
+font-size:16px;
+}
+
+#link{
+margin-top:20px;
+word-break:break-all;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="box" id="creator">
+
+<h2>Create Your Proposal 💌</h2>
+
+<input id="from" placeholder="Your Name"><br>
+<input id="to" placeholder="Crush Name"><br>
+<textarea id="msg" placeholder="Your Message"></textarea><br>
+
+<button onclick="generate()">Generate Link</button>
+
+<div id="link"></div>
+
+</div>
+
+<div class="box" id="proposal" style="display:none;">
+<h1 id="title"></h1>
+<p id="text"></p>
+
+<button onclick="yes()">YES ❤️</button>
+<button id="no" onmouseover="run()">NO 😅</button>
+</div>
+
+<script>
+
+function generate(){
+
+let from=document.getElementById("from").value
+let to=document.getElementById("to").value
+let msg=document.getElementById("msg").value
+
+let link=location.origin+location.pathname+
+`?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&msg=${encodeURIComponent(msg)}`
+
+document.getElementById("link").innerHTML="Share this link:<br>"+link
+
+}
+
+function getParams(){
+let p=new URLSearchParams(window.location.search)
+
+if(p.get("to")){
+document.getElementById("creator").style.display="none"
+document.getElementById("proposal").style.display="block"
+
+document.getElementById("title").innerText=
+p.get("to")+", Will You Be Mine? ❤️"
+
+document.getElementById("text").innerText=
+p.get("msg")+" — "+p.get("from")
+}
+}
+
+function yes(){
+document.body.innerHTML="<h1 style='color:white;text-align:center;margin-top:40vh'>She Said YES ❤️</h1>"
+}
+
+function run(){
+let b=document.getElementById("no")
+b.style.position="absolute"
+b.style.top=Math.random()*80+"%"
+b.style.left=Math.random()*80+"%"
+}
+
+getParams()
+
+</script>
+
+</body>
+</html>
